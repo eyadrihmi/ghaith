@@ -26,6 +26,18 @@ pipeline {
                 
             }
         }
+      stage("SONARQUBE"){
+            steps {
+                sh """mvn sonar:sonar"""
+                
+            }
+        }
+        stage("Junit/Mockito"){
+            steps {
+                sh """mvn test"""
+                
+            }
+        }
            stage("MVN Install"){
             steps {
                 sh """mvn install """
