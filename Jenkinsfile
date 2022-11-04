@@ -28,14 +28,19 @@ pipeline {
         }
       stage("SONARQUBE"){
             steps {
-                sh """mvn sonar:sonar"""
+                sh """mvn sonar:sonar """
                 
             }
         }
         stage("Junit/Mockito"){
             steps {
-                sh """mvn test"""
+                sh """mvn test """
                 
+            }
+        }
+        stage('Nexus'){
+            steps{
+                sh """mvn deploy """
             }
         }
            stage("MVN Install"){
