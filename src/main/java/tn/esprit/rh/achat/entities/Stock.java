@@ -1,11 +1,12 @@
 package tn.esprit.rh.achat.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,19 +18,23 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetailFacture implements Serializable {
+public class Stock implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idDetailFacture;
-	private Integer qteCommandee;
-	private float prixTotalDetail;
-	private Integer pourcentageRemise;
-	private float montantRemise;
-	@ManyToOne
-	private Produit produit;
-	@ManyToOne
+	private Long idStock;
+	private String libelleStock;
+	private Integer qte;
+	private Integer qteMin;
+	@OneToMany(mappedBy = "stock")
 	@JsonIgnore
-	Facture facture;
+	private Set<Produit> produits;
+	public Stock(String libelleStock, Integer qte, Integer qteMin) {
+		super();
+		this.libelleStock = libelleStock;
+		this.qte = qte;
+		this.qteMin = qteMin;
+	}
 
 }

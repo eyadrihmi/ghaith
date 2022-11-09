@@ -1,12 +1,16 @@
 package tn.esprit.rh.achat.entities;
 
 import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,19 +21,18 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetailFacture implements Serializable {
+public class Operateur implements Serializable{
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idDetailFacture;
-	private Integer qteCommandee;
-	private float prixTotalDetail;
-	private Integer pourcentageRemise;
-	private float montantRemise;
-	@ManyToOne
-	private Produit produit;
-	@ManyToOne
+	private Long idOperateur;
+	private String nom;
+	private String prenom;
+	
+	private String password;
+	@OneToMany
 	@JsonIgnore
-	Facture facture;
-
+	private Set<Facture> factures;
+	
 }
