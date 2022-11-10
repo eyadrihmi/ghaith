@@ -43,7 +43,7 @@ public class SecteurActiviteServiceTest {
 	@Test
 	public void testRetrieveSecteur() {
 		
-		SecteurActivite secteur = new SecteurActivite(1L, "ach","aaa",null);
+		SecteurActivite secteur = new SecteurActivite(1L, "ach","aaa");
 		secteur.setIdSecteurActivite(1L);
 		
 	Mockito.when(SecteurRepository.findById(1L)).thenReturn(Optional.of(secteur));
@@ -60,7 +60,7 @@ public class SecteurActiviteServiceTest {
 	public void createSecteurTest()
 	{
 
-		SecteurActivite secteur2 = new SecteurActivite(null,"aaa","oui",null);
+		SecteurActivite secteur2 = new SecteurActivite(null,"aaa","oui");
 		secteur2.setIdSecteurActivite(2L);
 		
 		SecteurService.addSecteurActivite(secteur2);
@@ -81,9 +81,9 @@ public class SecteurActiviteServiceTest {
 		List<SecteurActivite> SecteurList = new ArrayList<SecteurActivite>() {
 
 			{
-		add(new SecteurActivite(null,"mmm","hey",null));
-		add(new SecteurActivite(null,"sss","hello",null));
-		add(new SecteurActivite(null,"www","hi",null));
+		add(new SecteurActivite(null,"mmm","hey"));
+		add(new SecteurActivite(null,"sss","hello"));
+		add(new SecteurActivite(null,"www","hi"));
 			}};
 			
 			
@@ -101,7 +101,7 @@ public class SecteurActiviteServiceTest {
 	@Test
 	public void TestDeleteSecteur(){
 
-	SecteurActivite secteur1 = new SecteurActivite(null,"bbbb","no",null);
+	SecteurActivite secteur1 = new SecteurActivite(null,"bbbb","no");
 	secteur1.setIdSecteurActivite(7L);
 	
 	Mockito.lenient().when(SecteurRepository.findById(secteur1.getIdSecteurActivite())).thenReturn(Optional.of(secteur1));
