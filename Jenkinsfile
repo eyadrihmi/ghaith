@@ -12,30 +12,35 @@ pipeline {
             }
 }
         
-       stage('MVN Package'){
-            steps {
-                sh """mvn -version  """
-                sh """java -version """
-               sh """mvn package -e """
+        stage('database connection') {
+            steps{
+                sh '''
+                sudo docker stop mysql || true
+                sudo docker restart mysql || true
+                '''
             }
         }
-        
-      stage("MVN Compile"){
-            steps {
-                sh """mvn compile -e """
-                
+        stage('cleanig the project') {
+            steps{
+                sh 'mvn clean'
+            }
+
+        }
+        stage ('artifact construction') {
+            steps{
+                sh 'mvn  package'
             }
         }
-      stage("SONARQUBE"){
-            steps {
-                sh """mvn sonar:sonar """
-                
+        stage ('Unit Test') {
+            steps{
+                sh 'mvn  test'
             }
         }
-        stage("Junit/Mockito"){
-            steps {
-                sh """mvn test """
-                
+        stage ('SonarQube analysis') {
+            steps{
+                sh '''
+                mvn sonar:sonar
+                '''
             }
         }
         stage('Nexus'){
@@ -43,18 +48,38 @@ pipeline {
                 sh """mvn deploy """
             }
         }
-           stage("MVN Install"){
+         stage('Docker build')
+        {
             steps {
-                sh """mvn install """
-                
+                 sh 'docker build -t ghaithbhs/devops  .'
             }
         }
-        stage("MVN Clean"){
+        stage('Docker login')
+        {
             steps {
-                sh """mvn clean -e """
-                
-            }
+                sh 'echo $dockerhub_PSW | docker login -u ihebhamdi -p dckr_pat_PvFfLE0rm--tKJiRL1igKeLc2fQ'
+            }    
+       
         }
+      stage('Push') {
+
+			steps {
+				sh 'docker push ghaithbhs/devops'
+			}
+		}
+        
+       stage('Run app With DockerCompose') {
+              steps {
+                  sh "docker-compose -f docker-compose.yml up -d  "
+              }
+              }
+        stage('Sending email'){
+           steps {
+            mail bcc: '', body: '''Hello from Jenkins,
+            Devops Pipeline returned success.
+            Best Regards''', cc: '', from: '', replyTo: '', subject: 'Devops Pipeline', to: 'ghaith.belhadjsghaier@esprit.tn'
+            }
+       }
 
     }
 }
