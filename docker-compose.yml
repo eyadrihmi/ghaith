@@ -8,8 +8,7 @@ services:
       - MYSQL_DATABASE=achatdb
     ports:
       - 3306:3306
-    networks:
-      - backend-net
+
 
 
   app_achat_back:
@@ -28,5 +27,3 @@ services:
             "spring.jpa.hibernate.ddl-auto" : "update",
             "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect"
           }'
-    networks:
-      - backend-net
