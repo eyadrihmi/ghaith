@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+  mysql-container3:
+    container_name: mysql-container3
+    ports:
+      - '3310:3306'
+    environment:
+      - MYSQL_DATABASE=tpachato
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    restart: always
+    volumes:
+      - mysql-container3:/var/lib/mysql:rw
+    image: 'mysql:latest'
+    
+  projetdevops-backend:
+    depends_on:
+      - mysql-container3
+    container_name: achat-backend
+    ports:
+      - '8079:8077'
+    image: ihebhamdi/devops
+
+  
+
+volumes:
+  mysql-container3: { }
