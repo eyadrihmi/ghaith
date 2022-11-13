@@ -22,7 +22,6 @@ pipeline {
        stage ('artifact construction') {
             steps{
                 sh '''
-                docker restart mysql || true
                 mvn  package
                 '''
             }
@@ -31,7 +30,6 @@ pipeline {
             steps{
                 sh '''
                 mvn  test
-                docker stop mysql
                 '''
             }
         }
