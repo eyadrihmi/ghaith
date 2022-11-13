@@ -63,10 +63,10 @@ pipeline {
        stage('Run app With DockerCompose') {
               steps {
                 sh '''
-                sudo docker pull ghaithbhs/devops
-                sudo docker pull ghaithbhs/achat_front
-		sudo docker-compose up -d 
-                sudo docker-compose ps
+                 docker pull ghaithbhs/devops
+                 docker pull ghaithbhs/achat_front
+		 docker-compose up -d 
+                 docker-compose ps
 		'''
               }
               }
