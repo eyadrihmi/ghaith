@@ -64,7 +64,7 @@ pipeline {
               steps {
                 sh '''
                  docker pull ghaithbhs/devops
-                 docker pull ghaithbhs/achat_front
+                 docker pull ghaithbhs/achat_frontf
 		 docker-compose up -d 
                  docker-compose ps
 		'''
