@@ -65,6 +65,8 @@ pipeline {
                 sh '''
                 sudo docker pull ghaithbhs/devops
                 sudo docker pull ghaithbhs/achat_front
+		sudo docker-compose up -d 
+                sudo docker-compose ps
 		'''
               }
               }
