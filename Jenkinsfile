@@ -33,7 +33,7 @@ pipeline {
                 '''
             }
         }
-        stage ('SonarQube analysis') {
+        stage ('SonarQube') {
             steps{
                 sh '''
                 mvn sonar:sonar
@@ -45,7 +45,7 @@ pipeline {
                 sh """mvn deploy """
             }
         }
-         stage('Docker build')
+         stage('build')
         {
             steps {
                  sh 'docker build  -t ghaithbhs/devops  .'
