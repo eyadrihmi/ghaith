@@ -51,7 +51,15 @@ pipeline {
                  sh 'docker build --build-arg IP=192.168.1.114 -t ghaithbhs/devops  .'
             }
         }
-	    
+	      stage('Test') {
+      steps {
+        echo 'Testing...'
+        snykSecurity(
+          snykInstallation: 'Devops',
+          snykTokenId: 'f900ff34-d919-4bdf-bdee-e73995d03a04',
+        )
+      }
+    }  
       stage('Push') {
 
 			steps {
