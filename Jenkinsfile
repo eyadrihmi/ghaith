@@ -61,13 +61,14 @@ pipeline {
             }    
        
         }
+	    /*
       stage('Push') {
 
 			steps {
 				sh 'docker push ghaithbhs/devops'
 			}
 		}
-        
+        */
        stage('Run app With DockerCompose') {
               steps {
                   sh "docker-compose -f docker-compose.yml up -d  "
