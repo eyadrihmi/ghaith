@@ -12,28 +12,27 @@ pipeline {
             }
 }
      
-        stage('database connection') {
-            steps{
-                sh '''
-                sudo docker stop mysql || true
-                sudo docker restart mysql || true
-                '''
-            }
-        }
+
         stage('cleanig the project') {
             steps{
                 sh 'mvn clean'
             }
 
         }
-        stage ('artifact construction') {
+       stage ('artifact construction') {
             steps{
-                sh 'mvn  package'
+                sh '''
+                sudo docker restart mysql || true
+                mvn  package
+                '''
             }
         }
         stage ('Unit Test') {
             steps{
-                sh 'mvn  test'
+                sh '''
+                mvn  test
+                sudo docker stop mysql
+                '''
             }
         }
         stage ('SonarQube analysis') {
@@ -51,27 +50,24 @@ pipeline {
          stage('Docker build')
         {
             steps {
-                 sh 'docker build --build-arg IP=192.168.1.114 -t ghaithbhs/devops  .'
+                 sh 'docker build  -t ghaithbhs/devops  .'
             }
-        }
-        stage('Docker login')
-        {
-            steps {
-                sh 'echo $dockerhub_PSW | docker login -u ghaithbhs -p dckr_pat_PvFfLE0rm--tKJiRL1igKeLc2fQ'
-            }    
-       
         }
 	    /*
       stage('Push') {
 
 			steps {
+				sh 'echo $dockerhub_PSW | docker login -u ghaithbhs -p dckr_pat_PvFfLE0rm--tKJiRL1igKeLc2fQ'
 				sh 'docker push ghaithbhs/devops'
 			}
 		}
         */
        stage('Run app With DockerCompose') {
               steps {
-                  sh "docker-compose -f docker-compose.yml up -d  "
+                sh '''
+                sudo docker pull ghaithbhs/devops
+                sudo docker pull ghaithbhs/achat_front
+		'''
               }
               }
 	     
