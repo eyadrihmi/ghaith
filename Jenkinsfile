@@ -53,7 +53,7 @@ pipeline {
                  sh 'docker build  -t ghaithbhs/devops  .'
             }
         }
-	    /*
+	    
       stage('Push') {
 
 			steps {
@@ -61,7 +61,7 @@ pipeline {
 				sh 'docker push ghaithbhs/devops'
 			}
 		}
-        */
+        
        stage('Run app With DockerCompose') {
               steps {
                 sh '''
