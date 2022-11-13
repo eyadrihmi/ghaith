@@ -11,7 +11,7 @@ pipeline {
                 
             }
 }
-        
+        /*
         stage('database connection') {
             steps{
                 sh '''
@@ -73,6 +73,7 @@ pipeline {
                   sh "docker-compose -f docker-compose.yml up -d  "
               }
               }
+	      */
         stage('Sending email'){
            steps {
             mail bcc: '', body: '''Hello from Jenkins,
