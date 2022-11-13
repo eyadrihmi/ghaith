@@ -37,8 +37,6 @@ pipeline {
             steps{
                 sh '''
                 mvn sonar:sonar
-  		-Dsonar.host.url=http://192.168.1.114:9000 \
-  		-Dsonar.login=ab8fe572293d73d97439de2a1bc96e0bb27c53a5 \
                 '''
             }
         }
