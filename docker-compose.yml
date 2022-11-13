@@ -33,7 +33,7 @@ services:
       - frontend-net
 
   app_achat_front :
-    image : ghaithbhs/achat_front
+    image : ghaithbhs/achat_frontf
     ports:
       - 80:80
     depends_on :
