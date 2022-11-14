@@ -2,117 +2,78 @@ package tn.esprit.rh.achat.services;
 
 
 
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import tn.esprit.rh.achat.entities.Reglement;
 import tn.esprit.rh.achat.entities.SecteurActivite;
-//import tn.esprit.rh.achat.entities.Stock;
+import tn.esprit.rh.achat.repositories.ReglementRepository;
 import tn.esprit.rh.achat.repositories.SecteurActiviteRepository;
-//import tn.esprit.rh.achat.repositories.StockRepository;
-import tn.esprit.rh.achat.services.SecteurActiviteServiceImpl;
-//import tn.esprit.rh.achat.services.StockServiceImpl;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
-public class SecteurActiviteServiceImplTest {
+@SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
+class SecteurActiviteServiceImplTest {
 
     @Mock
-    SecteurActiviteRepository SecteurRepository;
-
+    SecteurActiviteRepository secteurActiviteRepository;
     @InjectMocks
-    SecteurActiviteServiceImpl SecteurService;
+    SecteurActiviteServiceImpl secteurActiviteService;
 
-
-
-
-    @Test
-    public void testRetrieveSecteur() {
-
-        SecteurActivite secteur = new SecteurActivite(1L, "ach","aaa",null);
-        secteur.setIdSecteurActivite(1L);
-
-        Mockito.when(SecteurRepository.findById(1L)).thenReturn(Optional.of(secteur));
-        SecteurService.retrieveSecteurActivite(1L);
-        Assertions.assertNotNull(secteur);
-
-        System.out.println(secteur);
-        System.out.println(" Retrieve is working correctly...!!");
-
-    }
+    SecteurActivite SR = new SecteurActivite( "bhbh" , "cddx");
+    List<SecteurActivite> SecteurActiviteList = new ArrayList<SecteurActivite>(){
+        {
+            add(new SecteurActivite( "bhbh" , "cddx"));
+            add(new SecteurActivite( "bhbh" , "cddx"));
+        }
+    };
 
 
     @Test
-    public void createSecteurTest()
-    {
-
-        SecteurActivite secteur2 = new SecteurActivite(null,"aaa","oui",null);
-        secteur2.setIdSecteurActivite(2L);
-
-        SecteurService.addSecteurActivite(secteur2);
-        verify(SecteurRepository, times(1)).save(secteur2);
-        System.out.println(secteur2);
-        System.out.println(" Create is working correctly...!!");
+    void retrieveAllSecteurActivite() {
+        Mockito.when(secteurActiviteRepository.findAll()).thenReturn(SecteurActiviteList);
+        List<SecteurActivite> lf = secteurActiviteService.retrieveAllSecteurActivite();
+        assertEquals(2, lf.size());
     }
-
-
-
-
-
-
 
     @Test
-    public void getAllSecteursTest()
-    {
-        List<SecteurActivite> SecteurList = new ArrayList<SecteurActivite>() {
-
-            {
-                add(new SecteurActivite(null,"mmm","hey",null));
-                add(new SecteurActivite(null,"sss","hello",null));
-                add(new SecteurActivite(null,"www","hi",null));
-            }};
-
-
-        when(SecteurService.retrieveAllSecteurActivite()).thenReturn(SecteurList);
-        //test
-        List<SecteurActivite> sList = SecteurService.retrieveAllSecteurActivite();
-        assertEquals(3, sList.size());
-        System.out.println(" Retrieve all is working correctly...!!");
-
+    void addSecteurActivite() {
+        Mockito.when(secteurActiviteRepository.save(SR)).thenReturn(SR);
+        SecteurActivite f = secteurActiviteService.addSecteurActivite(SR);
+        assertNotNull(f);
     }
-
-
-
 
     @Test
-    public void TestDeleteSecteur(){
-
-        SecteurActivite secteur1 = new SecteurActivite(null,"bbbb","no",null);
-        secteur1.setIdSecteurActivite(7L);
-
-        Mockito.lenient().when(SecteurRepository.findById(secteur1.getIdSecteurActivite())).thenReturn(Optional.of(secteur1));
-
-        SecteurService.deleteSecteurActivite(7L);
-        verify(SecteurRepository).deleteById(secteur1.getIdSecteurActivite());
-
-        System.out.println(secteur1);
-        System.out.println(" Delete is working correctly...!!");
+    void deleteSecteurActivite() {
+        Mockito.doNothing().when(secteurActiviteRepository).deleteById(Mockito.anyLong());
+        secteurActiviteService.deleteSecteurActivite(3L);
+        Mockito.verify(secteurActiviteRepository, Mockito.times(1)).deleteById(3L);
     }
 
+    @Test
+    void updateSecteurActivite() {
+        Mockito.when(secteurActiviteRepository.save(SR)).thenReturn(SR);
+        SecteurActivite f = secteurActiviteService.addSecteurActivite(SR);
+        assertNotNull(f);
+    }
+
+    @Test
+    void retrieveSecteurActivite() {
+        Mockito.when(secteurActiviteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(SR));
+        SecteurActivite r = secteurActiviteService.retrieveSecteurActivite(2L);
+        assertNotNull(r);
+    }
 }
