@@ -63,6 +63,7 @@ class SecteurActiviteServiceImplTest {
         Mockito.verify(secteurActiviteRepository, Mockito.times(1)).deleteById(3L);
     }
 
+
     @Test
     void updateSecteurActivite() {
         Mockito.when(secteurActiviteRepository.save(SR)).thenReturn(SR);
