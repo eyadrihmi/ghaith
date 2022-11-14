@@ -26,6 +26,14 @@ pipeline {
                 '''
             }
         }
+	stage('DB UP') {
+            steps{
+                sh '''
+                sudo docker stop mysql || true
+                sudo docker restart mysql || true
+                '''
+            }
+        }    
         stage ('Unit Test') {
            steps{
                 sh 'mvn  test'
