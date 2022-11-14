@@ -30,7 +30,7 @@ pipeline {
         stage ('Unit Test') {
            steps{
                 sh '''
-		mvn  test'
+		mvn  test
 		sudo docker stop mysql
               '''
             }
