@@ -98,7 +98,7 @@ public class SecteurActiviteServiceImplTest {
     }
 
 
-
+//test
 
     @Test
     public void TestDeleteSecteur(){
