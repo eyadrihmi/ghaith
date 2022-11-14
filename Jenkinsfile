@@ -33,6 +33,12 @@ pipeline {
                 '''
             }
         }
+	            stage('JaCoCo') {
+            steps {
+                echo 'Code Coverage'
+                jacoco()
+            }
+        }
         stage ('SonarQube') {
             steps{
                 sh '''
