@@ -55,7 +55,7 @@ pipeline {
       steps {
         echo 'Testing...'
 snykSecurity failOnError: false, failOnIssues: false, snykInstallation: 'Snyk', snykTokenId: 'Snyk-jenkins'
-        )
+        
       }
     }  
       stage('Push') {
