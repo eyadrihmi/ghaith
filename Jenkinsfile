@@ -12,17 +12,18 @@ pipeline {
             }
 }
      
-
-        stage('cleanig the project') {
+        stage('MySQL') {
             steps{
-                sh 'mvn clean'
+                sh '''
+                sudo docker stop mysql || true
+                sudo docker restart mysql || true
+                '''
             }
-
         }
        stage ('artifact construction') {
             steps{
                 sh '''
-		docker restart mysql || true
+		mvn clean
                 mvn  package
                 '''
             }
@@ -31,7 +32,6 @@ pipeline {
            steps{
                 sh '''
 		mvn  test
-		docker stop mysql
               '''
             }
         }
@@ -48,7 +48,7 @@ pipeline {
                 '''
             }
         }
-	    	      stage('Snyk') {
+	 stage('Snyk') {
       steps {
         echo 'Testing...'
 	snykSecurity failOnError: false, failOnIssues: false, snykInstallation: 'Snyk', snykTokenId: 'Snyk-jenkins'
