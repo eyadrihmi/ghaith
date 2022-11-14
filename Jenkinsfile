@@ -66,7 +66,7 @@ pipeline {
                  sh 'docker build --build-arg IP=192.168.1.114 -t ghaithbhs/devops  .'
             }
         }
- /*
+
       stage('Push') {
 
 			steps {
@@ -74,7 +74,7 @@ pipeline {
 				sh 'docker push ghaithbhs/devops'
 			}
 		}
-        */
+        
        stage('Run app With DockerCompose') {
               steps {
                 sh '''
