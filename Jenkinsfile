@@ -22,22 +22,17 @@ pipeline {
        stage ('artifact construction') {
             steps{
                 sh '''
+		sudo docker restart mysql || true
                 mvn  package
                 '''
             }
-        }
-	stage('DB UP') {
-            steps{
-                sh '''
-                sudo docker stop mysql || true
-                sudo docker restart mysql || true
-                '''
-            }
-        }    
+        } 
         stage ('Unit Test') {
            steps{
-                sh 'mvn  test'
-              
+                sh '''
+		mvn  test'
+		sudo docker stop mysql
+              '''
             }
         }
 	            stage('JaCoCo') {
