@@ -51,10 +51,10 @@ pipeline {
                  sh 'docker build --build-arg IP=192.168.1.114 -t ghaithbhs/devops  .'
             }
         }
-	      stage('Test') {
+	      stage('Snyk') {
       steps {
         echo 'Testing...'
-snykSecurity failOnError: false, failOnIssues: false, snykInstallation: 'Snyk', snykTokenId: 'Snyk-jenkins'
+	snykSecurity failOnError: false, failOnIssues: false, snykInstallation: 'Snyk', snykTokenId: 'Snyk-jenkins'
         
       }
     }  
