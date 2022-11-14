@@ -54,7 +54,6 @@ pipeline {
 	      stage('Test') {
       steps {
         echo 'Testing...'
-        snykSecurity(
 snykSecurity failOnError: false, failOnIssues: false, snykInstallation: 'Snyk', snykTokenId: 'Snyk-jenkins'
         )
       }
