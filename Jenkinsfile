@@ -11,7 +11,7 @@ pipeline {
                 
             }
 }
-     
+   
         stage('MySQL') {
             steps{
                 sh '''
@@ -63,18 +63,18 @@ pipeline {
          stage('build')
         {
             steps {
-                 sh 'docker build --build-arg IP=192.168.1.114 -t ghaithbhs/devops  .'
+                 sh 'docker build --build-arg IP=192.168.1.116 -t ghaithbhs/devops  .'
             }
         }
-/*
+
       stage('Push') {
 
 			steps {
-				sh 'echo $dockerhub_PSW | docker login -u ghaithbhs -p dckr_pat_PvFfLE0rm--tKJiRL1igKeLc2fQ'
-				sh 'docker push ghaithbhs/devops'
+				sh 'echo $dockerhub_PSW | docker login -u zoubaghz -p dckr_pat_R4PjLWflSBPghSQiVoBur0UFeaY'
+				sh 'docker push zoubaghz/devops'
 			}
 		}
-        */
+   /*
        stage('Run app With DockerCompose') {
               steps {
                 sh '''
@@ -85,7 +85,7 @@ pipeline {
 		'''
               }
               }
-	     
+	          */
         stage('Sending email'){
            steps {
             mail bcc: '', body: '''Ping.. ,
