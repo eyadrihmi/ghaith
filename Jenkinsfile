@@ -85,7 +85,7 @@ pipeline {
 		'''
               }
               }
-	          
+	  /*        
         stage('Sending email'){
            steps {
             mail bcc: '', body: '''Ping.. ,
@@ -93,6 +93,6 @@ pipeline {
             Keep Up The Good Work''', cc: '', from: '', replyTo: '', subject: 'Devops Pipeline', to: 'ghaith.belhadjsghaier@esprit.tn'
             }
        }
-
+*/
     }
 }
