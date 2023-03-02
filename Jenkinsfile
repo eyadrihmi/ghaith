@@ -74,7 +74,7 @@ pipeline {
 				sh 'docker push ghaithbhs/devops'
 			}
 		}
-   /*
+   
        stage('Run app With DockerCompose') {
               steps {
                 sh '''
@@ -85,7 +85,7 @@ pipeline {
 		'''
               }
               }
-	          */
+	          
         stage('Sending email'){
            steps {
             mail bcc: '', body: '''Ping.. ,
