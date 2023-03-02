@@ -70,8 +70,8 @@ pipeline {
       stage('Push') {
 
 			steps {
-				sh 'echo $dockerhub_PSW | docker login -u zoubaghz -p dckr_pat_R4PjLWflSBPghSQiVoBur0UFeaY'
-				sh 'docker push zoubaghz/devops'
+				sh 'echo $dockerhub_PSW | docker login -u ghaithbhs -p dckr_pat_Up3-FdbNcm2y370-_mgGLjYL5E8'
+				sh 'docker push ghaithbhs/devops'
 			}
 		}
    /*
